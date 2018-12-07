@@ -37,6 +37,7 @@ export default class Model extends ModelBase {
             storageProvider.setItem(key, data).then(() => {
                 if (itemsPath === null) {
                     resolve();
+                    return;
                 } else {
                     return storageProvider.getItem(itemsPath);
                 }
@@ -49,6 +50,11 @@ export default class Model extends ModelBase {
 
                 if (items.indexOf(key) === -1) {
                     items.push(key);
+                }
+
+                if (itemsPath === null) {
+                    resolve();
+                    return;
                 }
 
                 return storageProvider.setItem(itemsPath, JSON.stringify(items));
